@@ -2,16 +2,16 @@
   <button mat-button [matMenuTriggerFor]="menu">
     {{ trigger }}
   </button>
-}
-@if (!isRootNode) {
+} @else {
   <button
     mat-menu-item
     [matMenuTriggerFor]="menu"
     (menuOpened)="getData(trigger)"
     >
     {{ trigger }}
-  </button>
+   </button>
 }
+
 <mat-menu #menu="matMenu">
   @if (isLoading) {
     <button
