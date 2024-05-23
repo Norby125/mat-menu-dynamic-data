@@ -1,17 +1,26 @@
-<button mat-button [matMenuTriggerFor]="menu">
-  {{ trigger }}
-</button>
+
+
+@if(isRootNode()){
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+} @else {
+  <button mat-menu-item [matMenuTriggerFor]="menu">
+    {{ groupId() }}
+  </button>
+}
 
 <mat-menu #menu="matMenu">
-  @for (node of currentData(); track node; let i = $index) {
+  @for (node of currentData(); track node) {
     <button mat-menu-item style="padding: 0">
-      @if (isExpandable) {
+      @if (isString(node)) {
         <app-menu
-          [trigger]="node"
-          [data]="[]"
+          [groupId]="node"
+          [dataMap]="dataMap()"
+          [isRootNode]="false"
         ></app-menu>
       } @else {
-        <button mat-menu-item>{{ node }}</button>
+        <button mat-menu-item>{{ node.displayName }}</button>
       }
     </button>
   }
