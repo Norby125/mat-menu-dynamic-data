@@ -1,7 +1,7 @@
 // src/app/menu/menu.component.ts
 
 import { Component, Input, ViewChild } from "@angular/core";
-import { MatMenu } from "@angular/material/menu";
+import { MatLegacyMenu as MatMenu } from "@angular/material/legacy-menu";
 import { DynamicDatabase } from "../dynamic-database.service";
 
 @Component({
