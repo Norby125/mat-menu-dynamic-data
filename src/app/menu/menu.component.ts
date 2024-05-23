@@ -5,7 +5,9 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 
 export interface Action {
-  displayName: string
+  displayName: string;
+  icon: string;
+  operation: () => void;
 }
 
 @Component({
@@ -15,22 +17,18 @@ export interface Action {
   templateUrl: "./menu.component.html",
 })
 export class MenuComponent {
-
   dataMap = input.required<Map<string, (string | Action)[]>>();
   groupId = input.required<string>();
   isRootNode = input<boolean>(true);
 
-
   isString = <T = any>(str: string | T): str is string => {
     return typeof str === "string";
   };
-  currentData = computed( () => {
+  currentData = computed(() => {
     const dataMap = this.dataMap();
     const groupId = this.groupId();
 
     const result = dataMap.get(groupId)!;
     return result;
-  })
-
-
+  });
 }

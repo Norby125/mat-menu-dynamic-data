@@ -20,7 +20,11 @@
           [isRootNode]="false"
         ></app-menu>
       } @else {
-        <button mat-menu-item>{{ node.displayName }}</button>
+
+        <button mat-menu-item>
+          <mat-icon>{{node.icon}}</mat-icon>
+          {{ node.displayName }}
+        </button>
       }
     </button>
   }
