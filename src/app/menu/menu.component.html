@@ -1,33 +1,35 @@
-<!-- src/app/menu/menu.component.html -->
-
-<button *ngIf="isRootNode" mat-button [matMenuTriggerFor]="menu">
-  {{ trigger }}
-</button>
-<button
-  *ngIf="!isRootNode"
-  mat-menu-item
-  [matMenuTriggerFor]="menu"
-  (menuOpened)="getData(trigger)"
->
-  {{ trigger }}
-</button>
-<mat-menu #menu="matMenu">
+@if (isRootNode) {
+  <button mat-button [matMenuTriggerFor]="menu">
+    {{ trigger }}
+  </button>
+}
+@if (!isRootNode) {
   <button
     mat-menu-item
-    *ngIf="isLoading"
-    style="display: flex; justify-content: center; align-items: center"
-  >
-    <mat-spinner mode="indeterminate" diameter="24"></mat-spinner>
+    [matMenuTriggerFor]="menu"
+    (menuOpened)="getData(trigger)"
+    >
+    {{ trigger }}
   </button>
-  <ng-container *ngFor="let node of data; let i = index">
-    <button mat-menu-item style="padding: 0">
-      <app-menu
-        [trigger]="node"
-        *ngIf="isExpandable(node); else menuItem"
-      ></app-menu>
+}
+<mat-menu #menu="matMenu">
+  @if (isLoading) {
+    <button
+      mat-menu-item
+      style="display: flex; justify-content: center; align-items: center"
+      >
+      <mat-spinner mode="indeterminate" diameter="24"></mat-spinner>
     </button>
-    <ng-template #menuItem>
-      <button mat-menu-item>{{ node }}</button>
-    </ng-template>
-  </ng-container>
+  }
+  @for (node of data; track node; let i = $index) {
+    <button mat-menu-item style="padding: 0">
+      @if (isExpandable(node)) {
+        <app-menu
+          [trigger]="node"
+        ></app-menu>
+      } @else {
+        <button mat-menu-item>{{ node }}</button>
+      }
+    </button>
+  }
 </mat-menu>
