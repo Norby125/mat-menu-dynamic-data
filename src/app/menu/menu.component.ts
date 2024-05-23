@@ -1,32 +1,31 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input, computed, input } from "@angular/core";
 import { DynamicDatabase } from "../dynamic-database.service";
+import { MatMenuModule } from "@angular/material/menu";
+import { MatButtonModule } from "@angular/material/button";
 
 @Component({
   selector: "app-menu",
+  standalone: true,
+  imports: [MatMenuModule, MatButtonModule],
   templateUrl: "./menu.component.html",
 })
 export class MenuComponent {
-  @Input() data: string[] = [];
-  @Input() trigger = "Trigger";
-  @Input() isRootNode = false;
 
-  isLoading = false;
-  dataLoaded = false;
+  dataMap = input.required<Map<string, string[]>>();
+  trigger = input.required<string>();
 
-  constructor(private database: DynamicDatabase) {}
+  currentData = computed( () => {
+    const dataMap = this.dataMap();
+    const trigger = this.trigger();
 
-  getData(node: string) {
-    if (!this.dataLoaded) {
-      this.isLoading = true;
-      this.database.getChildren(node).subscribe((d) => {
-        this.data = d?.slice() || [];
-        this.isLoading = false;
-        this.dataLoaded = true;
-      });
-    }
+    return dataMap.get(trigger);
+  })
+  constructor() {}
+
+  get asd(){
+    return this.dataMap().get(this.trigger);
   }
-
-  isExpandable(node: string) {
-    return this.database.isExpandable(node);
+   get isExpandable() {
+    return this.data.length > 1;
   }
 }

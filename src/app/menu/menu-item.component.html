@@ -1,15 +1,14 @@
-<button mat-button [matMenuTriggerFor]="menu">
+<button mat-menu-item [matMenuTriggerFor]="menu">
   {{ trigger }}
 </button>
-
 <mat-menu #menu="matMenu">
-  @for (node of currentData(); track node; let i = $index) {
+  @for (node of data; track node; let i = $index) {
     <button mat-menu-item style="padding: 0">
       @if (isExpandable) {
-        <app-menu
+        <app-menu-item
           [trigger]="node"
           [data]="[]"
-        ></app-menu>
+        ></app-menu-item>
       } @else {
         <button mat-menu-item>{{ node }}</button>
       }
