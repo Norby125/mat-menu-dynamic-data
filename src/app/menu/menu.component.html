@@ -13,14 +13,6 @@
 }
 
 <mat-menu #menu="matMenu">
-  @if (isLoading) {
-    <button
-      mat-menu-item
-      style="display: flex; justify-content: center; align-items: center"
-      >
-      <mat-spinner mode="indeterminate" diameter="24"></mat-spinner>
-    </button>
-  }
   @for (node of data; track node; let i = $index) {
     <button mat-menu-item style="padding: 0">
       @if (isExpandable(node)) {

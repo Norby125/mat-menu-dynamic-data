@@ -11,9 +11,6 @@ export class DynamicDatabase {
     ["Macintosh", ["Yellow", "White", "Purple"]],
   ]);
 
-  // this can also come from database as initial data
-  rootLevelNodes: string[] = ["Fruits", "Vegetables"];
-
   getChildren(node: string) {
     // adding delay to mock a REST API call
     return of(this.dataMap.get(node)).pipe(delay(1000));

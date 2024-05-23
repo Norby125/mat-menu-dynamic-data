@@ -9,8 +9,5 @@ import { DynamicDatabase } from "./dynamic-database.service";
 })
 export class AppComponent {
   title = "mat-menu-dynamic-data";
-  initialData: string[] = [];
-  constructor(private database: DynamicDatabase) {
-    this.initialData = this.database.rootLevelNodes.slice();
-  }
+  initialData: string[] = ["Fruits", "Vegetables"];
 }

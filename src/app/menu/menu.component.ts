@@ -1,6 +1,4 @@
-// src/app/menu/menu.component.ts
-
-import { Component, Input, ViewChild } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { DynamicDatabase } from "../dynamic-database.service";
 
 @Component({
