@@ -5,16 +5,13 @@
     <mat-icon>more_vert</mat-icon>
   </button>
 } @else {
-  <button mat-menu-item>
-    {{ groupId() }}
-  </button>
+  {{ groupId() }}
 }
 
 <mat-menu #menu="matMenu">
-  @for (node of currentData(); track node) {
-    @if (isString(node)) {
+  @for (node of nodes(); track node) {
+    @if (node | isString) {
       <button mat-menu-item [matMenuTriggerFor]="appMenu.matMenu() ?? null">
-        <!-- <mat-icon>{{node.icon}}</mat-icon> -->
         <app-menu #appMenu
           [groupId]="node"
           [dataMap]="dataMap()"
