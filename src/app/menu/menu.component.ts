@@ -1,24 +1,27 @@
-import { Component, Input, OnInit, computed, inject, input, viewChild } from "@angular/core";
-import { MAT_MENU_PANEL, MatMenu, MatMenuModule } from "@angular/material/menu";
-import { MatButtonModule } from "@angular/material/button";
-import { MatIconModule } from "@angular/material/icon";
-import { IsStringPipe } from "./is-string.pipe";
+import { Component, computed, input, viewChild } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenu, MatMenuModule } from '@angular/material/menu';
+
+import { IsStringPipe } from './is-string.pipe';
 
 export interface Action {
   displayName: string;
+  disabled?: boolean;
   icon: string;
   operation: () => void;
 }
 
 @Component({
-  selector: "app-menu",
+  selector: 'ipl-menu',
   standalone: true,
   imports: [MatMenuModule, MatButtonModule, MatIconModule, IsStringPipe],
-  templateUrl: "./menu.component.html",
+  templateUrl: './menu.component.html'
 })
-export class MenuComponent{
+export class IplMenuComponent {
   dataMap = input.required<Map<string, (string | Action)[]>>();
   groupId = input.required<string>();
+  icon = input<string>('more_horiz');
   isRootNode = input<boolean>(true);
 
   matMenu = viewChild(MatMenu);
@@ -26,7 +29,6 @@ export class MenuComponent{
     const dataMap = this.dataMap();
     const groupId = this.groupId();
 
-    const result = dataMap.get(groupId)!;
-    return result;
+    return dataMap.get(groupId) ?? [];
   });
 }

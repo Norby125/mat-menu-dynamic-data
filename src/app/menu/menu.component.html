@@ -1,8 +1,6 @@
-
-
-@if(isRootNode()){
+@if (isRootNode()) {
   <button mat-icon-button [matMenuTriggerFor]="menu">
-    <mat-icon>more_vert</mat-icon>
+    <mat-icon>{{ icon() }}</mat-icon>
   </button>
 } @else {
   {{ groupId() }}
@@ -12,17 +10,14 @@
   @for (node of nodes(); track node) {
     @if (node | isString) {
       <button mat-menu-item [matMenuTriggerFor]="appMenu.matMenu() ?? null">
-        <app-menu #appMenu
-          [groupId]="node"
-          [dataMap]="dataMap()"
-          [isRootNode]="false"
-        ></app-menu>
+        <mat-icon>restart_alt</mat-icon>
+        <ipl-menu #appMenu [groupId]="node" [dataMap]="dataMap()" [isRootNode]="false"></ipl-menu>
       </button>
-      } @else {
-        <button mat-menu-item>
-          <mat-icon>{{node.icon}}</mat-icon>
-          {{ node.displayName }}
-        </button>
-      }
+    } @else {
+      <button mat-menu-item [disabled]="node.disabled">
+        <mat-icon>{{ node.icon }}</mat-icon>
+        {{ node.displayName }}
+      </button>
+    }
   }
 </mat-menu>

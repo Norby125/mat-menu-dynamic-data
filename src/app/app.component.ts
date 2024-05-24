@@ -1,14 +1,14 @@
 // src/app/app.component.ts
 
 import { Component } from "@angular/core";
-import { Action, MenuComponent } from "./menu/menu.component";
+import { Action, IplMenuComponent } from "./menu/menu.component";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatButtonModule } from "@angular/material/button";
 
 @Component({
   selector: "app-root",
   standalone: true,
-  imports: [MenuComponent, MatMenuModule, MatButtonModule],
+  imports: [IplMenuComponent, MatMenuModule, MatButtonModule],
   templateUrl: "app.component.html",
 })
 export class AppComponent {
@@ -21,15 +21,14 @@ export class AppComponent {
       [
         "Apple",
         { displayName: "Orange", operation: this.doSmth, icon: "restart_alt" },
-        "Banana",
+        "Vegetables",
       ],
     ],
     [
       "Vegetables",
       [
-        { displayName: "Tomato", operation: this.doSmth, icon: "restart_alt" },
+        { displayName: "Tomato", operation: this.doSmth, icon: "restart_alt", disabled: true },
         { displayName: "Potato", operation: this.doSmth, icon: "restart_alt" },
-        "Onion",
       ],
     ],
     [
