@@ -5,27 +5,27 @@
     <mat-icon>more_vert</mat-icon>
   </button>
 } @else {
-  <button mat-menu-item [matMenuTriggerFor]="menu">
+  <button mat-menu-item>
     {{ groupId() }}
   </button>
 }
 
 <mat-menu #menu="matMenu">
   @for (node of currentData(); track node) {
-    <button mat-menu-item style="padding: 0">
-      @if (isString(node)) {
-        <app-menu
+    @if (isString(node)) {
+      <button mat-menu-item [matMenuTriggerFor]="appMenu.matMenu() ?? null">
+        <!-- <mat-icon>{{node.icon}}</mat-icon> -->
+        <app-menu #appMenu
           [groupId]="node"
           [dataMap]="dataMap()"
           [isRootNode]="false"
         ></app-menu>
+      </button>
       } @else {
-
         <button mat-menu-item>
           <mat-icon>{{node.icon}}</mat-icon>
           {{ node.displayName }}
         </button>
       }
-    </button>
   }
 </mat-menu>

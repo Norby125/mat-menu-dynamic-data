@@ -89,7 +89,7 @@
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true,
+              "sourceMap": {"hidden": false, "scripts": true,"styles": true,"vendor": true},
               "namedChunks": true
             }
           },

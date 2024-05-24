@@ -1,13 +1,14 @@
 // src/app/app.component.ts
 
 import { Component } from "@angular/core";
-import { DynamicDatabase } from "./dynamic-database.service";
 import { Action, MenuComponent } from "./menu/menu.component";
+import { MatMenuModule } from "@angular/material/menu";
+import { MatButtonModule } from "@angular/material/button";
 
 @Component({
   selector: "app-root",
   standalone: true,
-  imports: [MenuComponent],
+  imports: [MenuComponent, MatMenuModule, MatButtonModule],
   templateUrl: "app.component.html",
 })
 export class AppComponent {
