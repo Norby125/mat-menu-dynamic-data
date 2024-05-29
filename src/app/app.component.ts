@@ -40,14 +40,14 @@ export class AppComponent {
               displayName: 'Yellow',
               operation,
               icon: 'restart_alt',
-              hide: true
+              hide: false
             },
             {
               nodeType: 'action',
               displayName: 'White',
               operation,
               icon: 'restart_alt',
-              hide: true
+              hide: false
             },
             {
               nodeType: 'action',
@@ -62,7 +62,13 @@ export class AppComponent {
     },
     {
       nodeType: 'action',
-      displayName: 'Orange',
+      displayName: 'Action 1',
+      operation,
+      icon: ''
+    },
+    {
+      nodeType: 'action',
+      displayName: 'Action 2',
       operation,
       icon: ''
     },

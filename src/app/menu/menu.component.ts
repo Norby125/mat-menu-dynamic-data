@@ -3,8 +3,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 
+import { IplMenuFlyoutComponent } from './menu-flyout.component';
 import { MenuNode } from './menu-node';
-import { IplMenuNodesComponent } from './menu-nodes.component';
+import { IplMenuSectionComponent } from './menu-section.component';
 
 export interface Action {
   displayName: string;
@@ -15,7 +16,7 @@ export interface Action {
 @Component({
   selector: 'ipl-menu',
   standalone: true,
-  imports: [MatMenuModule, MatButtonModule, IplMenuNodesComponent, MatIconModule],
+  imports: [MatMenuModule, MatButtonModule, IplMenuFlyoutComponent, MatIconModule, IplMenuSectionComponent],
   templateUrl: './menu.component.html'
 })
 export class IplMenuComponent {
@@ -38,7 +39,7 @@ export class IplMenuComponent {
       });
       return result;
     };
-    return visitAllNodes(this.nodes());
+    return visitAllNodes(this.nodes()).sort((x, y) => x.nodeType.localeCompare(y.nodeType));
   });
   icon = input<string>('more_horiz');
 }

@@ -6,12 +6,12 @@ import { MatMenu, MatMenuModule } from '@angular/material/menu';
 import { MenuNode, MenuNodeAction } from './menu-node';
 
 @Component({
-  selector: 'ipl-menu-nodes',
+  selector: 'ipl-menu-flyout',
   standalone: true,
   imports: [MatMenuModule, MatButtonModule, MatIconModule],
-  templateUrl: './menu-nodes.component.html'
+  templateUrl: './menu-flyout.component.html'
 })
-export class IplMenuNodesComponent {
+export class IplMenuFlyoutComponent {
   nodes = input.required<MenuNode[]>();
 
   atLeastOneNodeHasIcon = computed(() => this.nodes().some((x) => x.icon));

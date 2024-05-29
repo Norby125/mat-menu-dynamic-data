@@ -6,7 +6,7 @@
           <mat-icon> {{ node.icon }}</mat-icon>
         }
         {{ node.displayName }}
-        <ipl-menu-nodes #menuItem [nodes]="node.nodes" />
+        <ipl-menu-flyout #menuItem [nodes]="node.nodes" />
       </button>
     } @else if (node.nodeType === 'action') {
       <button mat-menu-item [disabled]="node.disabled" (click)="click($event, node)">

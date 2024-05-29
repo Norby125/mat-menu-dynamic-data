@@ -1,5 +1,31 @@
-<button mat-icon-button [matMenuTriggerFor]="menuNodes.matMenu() ?? null">
+<button mat-icon-button [matMenuTriggerFor]="mainMenu">
   <mat-icon>{{ icon() }}</mat-icon>
 </button>
 
-<ipl-menu-nodes #menuNodes [nodes]="filteredNodes()" />
+<mat-menu #mainMenu="matMenu">
+  @for (node of filteredNodes(); track node) {
+    @if (node.nodeType === 'group') {
+      <ipl-menu-section [node]="node">
+        @for (subnode of node.nodes; track subnode) {
+          @if (subnode.nodeType === 'group') {
+            <button mat-menu-item [matMenuTriggerFor]="menuItem.matMenu() ?? null">
+              <mat-icon> {{ subnode.icon }}</mat-icon>
+              {{ subnode.displayName }}
+              <ipl-menu-flyout #menuItem [nodes]="subnode.nodes" />
+            </button>
+          } @else if (subnode.nodeType === 'action') {
+            <button mat-menu-item [disabled]="subnode.disabled">
+              <mat-icon> {{ subnode.icon }}</mat-icon>
+              {{ subnode.displayName }}
+            </button>
+          }
+        }
+      </ipl-menu-section>
+    } @else if (node.nodeType === 'action') {
+      <button mat-menu-item [disabled]="node.disabled">
+        <mat-icon> {{ node.icon }}</mat-icon>
+        {{ node.displayName }}
+      </button>
+    }
+  }
+</mat-menu>
