@@ -1,5 +1,15 @@
-<button mat-icon-button [matMenuTriggerFor]="menuNodes.matMenu() ?? null">
+<button mat-icon-button [matMenuTriggerFor]="menu">
   <mat-icon>{{ icon() }}</mat-icon>
 </button>
 
-<ipl-menu-nodes #menuNodes [nodes]="filteredNodes()" />
+<mat-menu #menu="matMenu">
+  <div matMenuContent>
+    @for (node of filteredNodes(); track node) {
+      @if (node.nodeType === 'group') {
+        <ipl-menu-node-group [groupNode]="node" [showIcon]="atLeastOneNodeHasIcon()"></ipl-menu-node-group>
+      } @else if (node.nodeType === 'action') {
+        <ipl-menu-node-action [actionNode]="node" [showIcon]="atLeastOneNodeHasIcon()"></ipl-menu-node-action>
+      }
+    }
+  </div>
+</mat-menu>

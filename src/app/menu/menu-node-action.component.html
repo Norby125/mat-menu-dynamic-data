@@ -1,0 +1,6 @@
+<button mat-menu-item [disabled]="actionNode().disabled" (click)="click($event)">
+  @if (showIcon()) {
+    <mat-icon> {{ actionNode().icon }}</mat-icon>
+  }
+  {{ actionNode().displayName }}
+</button>

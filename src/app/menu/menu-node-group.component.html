@@ -1,0 +1,15 @@
+<button mat-menu-item [matMenuTriggerFor]="menu" (mouseenter)="menuTrigger.openMenu()" #menuTrigger="matMenuTrigger">
+  @if (showIcon()) {
+    <mat-icon> {{ groupNode().icon }}</mat-icon>
+  }
+  {{ groupNode().displayName }}
+  <mat-menu #menu="matMenu">
+    @for (node of groupNode().nodes; track node) {
+      @if (node.nodeType === 'group') {
+        <ipl-menu-node-group [groupNode]="node" [showIcon]="atLeastOneNodeHasIcon()"></ipl-menu-node-group>
+      } @else if (node.nodeType === 'action') {
+        <ipl-menu-node-action [actionNode]="node" [showIcon]="atLeastOneNodeHasIcon()"></ipl-menu-node-action>
+      }
+    }
+  </mat-menu>
+</button>

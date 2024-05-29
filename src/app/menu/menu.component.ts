@@ -4,7 +4,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 
 import { MenuNode } from './menu-node';
-import { IplMenuNodesComponent } from './menu-nodes.component';
+import { IplMenuNodeActionComponent } from './menu-node-action.component';
+import { IplMenuNodeGroupComponent } from './menu-node-group.component';
 
 export interface Action {
   displayName: string;
@@ -15,7 +16,7 @@ export interface Action {
 @Component({
   selector: 'ipl-menu',
   standalone: true,
-  imports: [MatMenuModule, MatButtonModule, IplMenuNodesComponent, MatIconModule],
+  imports: [MatMenuModule, MatButtonModule, MatIconModule, IplMenuNodeGroupComponent, IplMenuNodeActionComponent],
   templateUrl: './menu.component.html'
 })
 export class IplMenuComponent {
@@ -40,5 +41,7 @@ export class IplMenuComponent {
     };
     return visitAllNodes(this.nodes());
   });
+  atLeastOneNodeHasIcon = computed(() => this.filteredNodes().some((x) => x.icon));
+
   icon = input<string>('more_horiz');
 }
