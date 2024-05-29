@@ -86,6 +86,31 @@ export class AppComponent {
           disabled: true
         },
         {
+          nodeType: 'group',
+          displayName: 'Tomato',
+          icon: '',
+          nodes: [
+            {
+              nodeType: 'action',
+              displayName: 'Action 1',
+              operation,
+              icon: ''
+            },
+            {
+              nodeType: 'action',
+              displayName: 'Action 2',
+              operation,
+              icon: ''
+            },
+            {
+              nodeType: 'action',
+              displayName: 'Action 3',
+              operation,
+              icon: ''
+            }
+          ]
+        },
+        {
           nodeType: 'action',
           displayName: 'Potato',
           operation,
