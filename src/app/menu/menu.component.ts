@@ -1,9 +1,10 @@
-import { Component, computed, input, viewChild } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatMenu, MatMenuModule } from '@angular/material/menu';
+import { MatMenuModule } from '@angular/material/menu';
 
-import { IsStringPipe } from './is-string.pipe';
+import { MenuNode } from './menu-node';
+import { IplMenuNodesComponent } from './menu-nodes.component';
 
 export interface Action {
   displayName: string;
@@ -11,24 +12,33 @@ export interface Action {
   icon: string;
   operation: () => void;
 }
-
 @Component({
   selector: 'ipl-menu',
   standalone: true,
-  imports: [MatMenuModule, MatButtonModule, MatIconModule, IsStringPipe],
+  imports: [MatMenuModule, MatButtonModule, IplMenuNodesComponent, MatIconModule],
   templateUrl: './menu.component.html'
 })
 export class IplMenuComponent {
-  dataMap = input.required<Map<string, (string | Action)[]>>();
-  groupId = input.required<string>();
-  icon = input<string>('more_horiz');
-  isRootNode = input<boolean>(true);
-
-  matMenu = viewChild(MatMenu);
-  nodes = computed(() => {
-    const dataMap = this.dataMap();
-    const groupId = this.groupId();
-
-    return dataMap.get(groupId) ?? [];
+  nodes = input.required<MenuNode[]>();
+  filteredNodes = computed(() => {
+    const visitAllNodes = (nodes: MenuNode[]) => {
+      const result: MenuNode[] = [];
+      nodes.forEach((node) => {
+        if (!node.hide) {
+          if (node.nodeType === 'action') {
+            result.push(node);
+          }
+          if (node.nodeType === 'group') {
+            const newNodes = visitAllNodes(node.nodes);
+            if (newNodes.length > 0) {
+              result.push({ ...node, nodes: newNodes });
+            }
+          }
+        }
+      });
+      return result;
+    };
+    return visitAllNodes(this.nodes());
   });
+  icon = input<string>('more_horiz');
 }
