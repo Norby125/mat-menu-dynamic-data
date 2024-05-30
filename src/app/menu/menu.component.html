@@ -3,29 +3,30 @@
 </button>
 
 <mat-menu #mainMenu="matMenu">
-  @for (node of filteredNodes(); track node) {
-    @if (node.nodeType === 'group') {
-      <ipl-menu-section [node]="node">
-        @for (subnode of node.nodes; track subnode) {
-          @if (subnode.nodeType === 'group') {
-            <button mat-menu-item [matMenuTriggerFor]="menuItem.matMenu() ?? null">
-              <mat-icon> {{ subnode.icon }}</mat-icon>
-              {{ subnode.displayName }}
-              <ipl-menu-flyout #menuItem [nodes]="subnode.nodes" />
-            </button>
-          } @else if (subnode.nodeType === 'action') {
-            <button mat-menu-item [disabled]="subnode.disabled">
-              <mat-icon> {{ subnode.icon }}</mat-icon>
-              {{ subnode.displayName }}
-            </button>
-          }
-        }
-      </ipl-menu-section>
-    } @else if (node.nodeType === 'action') {
-      <button mat-menu-item [disabled]="node.disabled">
+  @for (node of rootActions(); track node) {
+    <button mat-menu-item [disabled]="node.disabled">
+      @if (atLeastOneRootActionHasIcon()) {
         <mat-icon> {{ node.icon }}</mat-icon>
-        {{ node.displayName }}
-      </button>
-    }
+      }
+      {{ node.displayName }}
+    </button>
+  }
+  @for (node of rootGroups(); track node) {
+    <ipl-menu-section [node]="node">
+      @for (subnode of node.nodes; track subnode) {
+        @if (subnode.nodeType === 'group') {
+          <button mat-menu-item [matMenuTriggerFor]="menuItem.matMenu() ?? null">
+            <mat-icon> {{ subnode.icon }}</mat-icon>
+            {{ subnode.displayName }}
+            <ipl-menu-flyout #menuItem [nodes]="subnode.nodes" />
+          </button>
+        } @else if (subnode.nodeType === 'action') {
+          <button mat-menu-item [disabled]="subnode.disabled">
+            <mat-icon> {{ subnode.icon }}</mat-icon>
+            {{ subnode.displayName }}
+          </button>
+        }
+      }
+    </ipl-menu-section>
   }
 </mat-menu>

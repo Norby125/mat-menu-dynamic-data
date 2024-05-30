@@ -4,7 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 
 import { IplMenuFlyoutComponent } from './menu-flyout.component';
-import { MenuNode } from './menu-node';
+import { MenuNode, MenuNodeAction, MenuNodeGroup } from './menu-node';
 import { IplMenuSectionComponent } from './menu-section.component';
 
 export interface Action {
@@ -21,7 +21,8 @@ export interface Action {
 })
 export class IplMenuComponent {
   nodes = input.required<MenuNode[]>();
-  filteredNodes = computed(() => {
+
+  private filteredNodes = computed(() => {
     const visitAllNodes = (nodes: MenuNode[]) => {
       const result: MenuNode[] = [];
       nodes.forEach((node) => {
@@ -39,7 +40,21 @@ export class IplMenuComponent {
       });
       return result;
     };
-    return visitAllNodes(this.nodes()).sort((x, y) => x.nodeType.localeCompare(y.nodeType));
+    return visitAllNodes(this.nodes());
+  });
+
+  rootActions = computed(() => {
+    return this.filteredNodes()
+      .filter((x) => x.nodeType === 'action')
+      .map((x) => <MenuNodeAction>x);
+  });
+
+  atLeastOneRootActionHasIcon = computed(() => this.rootActions().some((x) => x.icon));
+
+  rootGroups = computed(() => {
+    return this.filteredNodes()
+      .filter((x) => x.nodeType === 'group')
+      .map((x) => <MenuNodeGroup>x);
   });
   icon = input<string>('more_horiz');
 }

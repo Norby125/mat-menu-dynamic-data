@@ -97,9 +97,22 @@ export class AppComponent {
               icon: ''
             },
             {
-              nodeType: 'action',
+              nodeType: 'group',
               displayName: 'Action 2',
-              operation,
+              nodes: [
+                {
+                  nodeType: 'action',
+                  displayName: 'Action 1',
+                  operation,
+                  icon: ''
+                },
+                {
+                  nodeType: 'action',
+                  displayName: 'Action 2',
+                  operation,
+                  icon: ''
+                }
+              ],
               icon: ''
             },
             {
